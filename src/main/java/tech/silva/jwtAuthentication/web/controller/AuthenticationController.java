@@ -1,5 +1,6 @@
 package tech.silva.jwtAuthentication.web.controller;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tech.silva.jwtAuthentication.service.AuthenticationService;
@@ -14,7 +15,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("autheticate")
-    public String authenticate(){
-        return authenticationService.authenticate();
+    public String authenticate(Authentication authentication){
+        return authenticationService.authenticate(authentication);
     }
 }
