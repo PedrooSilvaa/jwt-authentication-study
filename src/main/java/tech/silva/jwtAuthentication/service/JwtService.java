@@ -6,36 +6,36 @@ import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
+import tech.silva.jwtAuthentication.entity.User;
 
 import java.time.Instant;
 import java.util.stream.Collectors;
 
 @Service
 public class JwtService {
-
     private final JwtEncoder encoder;
 
     public JwtService(JwtEncoder encoder) {
         this.encoder = encoder;
     }
 
-    public String generateToken(Authentication authentication){
+    public String generateToken(User user) {
         Instant now = Instant.now();
-        Long expire = 3600L;
+        long expiry = 36000L;
 
-        String scopes = authentication.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.joining(" "));
+        String scope = "read";
 
-        var claims = JwtClaimsSet.builder()
-                .issuer("jwt-authentication-study")
+        JwtClaimsSet claims = JwtClaimsSet.builder()
+                .issuer("spring-security-jwt")
                 .issuedAt(now)
-                .expiresAt(now.plusSeconds(expire))
-                .subject(authentication.getName())
-                .claim("scope", scopes)
+                .expiresAt(now.plusSeconds(expiry))
+                .subject(user.getUsername())
+                .claim("scope", scope)
                 .build();
 
-        return encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+        return encoder.encode(
+                        JwtEncoderParameters.from(claims))
+                .getTokenValue();
     }
-}
 
+}

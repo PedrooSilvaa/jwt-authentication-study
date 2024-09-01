@@ -1,9 +1,9 @@
 package tech.silva.jwtAuthentication.entity;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Table;
+import jakarta.persistence.*;
 
-@Table("USERS")
+@Entity
+@Table(name = "USERS")
 public class User {
 
     @Id
@@ -13,6 +13,9 @@ public class User {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public User() {
     }
 
     public String getUsername() {
