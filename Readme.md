@@ -1,5 +1,5 @@
 # Repositório de Estudos sobre JWT com Java
-
+ 
 Este repositório contém exemplos e códigos de estudo sobre JSON Web Tokens (JWT) utilizando a linguagem Java. O objetivo é entender como implementar e utilizar JWT para autenticação e autorização em aplicações Java, explorando boas práticas e técnicas de segurança.
 
 ## Descrição
